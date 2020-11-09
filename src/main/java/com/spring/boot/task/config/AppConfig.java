@@ -17,7 +17,7 @@ public class AppConfig {
         try {
             return new CSVReader(new FileReader(inputPath));
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("No such file!", e);
+            throw new RuntimeException("No such file: " + inputPath, e);
         }
     }
 }
