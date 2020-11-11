@@ -23,7 +23,7 @@ public class CsvFileReaderImpl implements FileReader {
         try (reader) {
             List<String[]> lines = new ArrayList<>();
             String[] nextLine;
-            while ((nextLine = reader.readNext()) != null && lines.size() < 10) {
+            while ((nextLine = reader.readNext()) != null) {
                 lines.add(nextLine);
             }
             if (isHeaderProvided(lines.get(0))) {

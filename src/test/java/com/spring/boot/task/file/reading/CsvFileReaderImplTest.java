@@ -28,14 +28,6 @@ class CsvFileReaderImplTest {
             + "and she appreciates this product better than  most.";
 
     @Test
-    public void readWithOkPath() throws FileNotFoundException {
-        List<String[]> resp;
-        FileReader reader = new CsvFileReaderImpl(new CSVReader(new java.io.FileReader(INPUT_PATH_OK)));
-        resp = reader.read();
-        Assert.assertEquals(resp.get(0).length, OK_LENGTH);
-    }
-
-    @Test
     public void readWithBadPath() {
         assertThrows(FileNotFoundException.class, () -> {
             new CsvFileReaderImpl(new CSVReader(new java.io.FileReader(INPUT_PATH_BAD))).read();
@@ -46,19 +38,17 @@ class CsvFileReaderImplTest {
     public void isReadOk() throws FileNotFoundException {
         FileReader reader = new CsvFileReaderImpl(new CSVReader(new java.io.FileReader(INPUT_PATH_OK)));
         List<String[]> resp = reader.read();
-        String headerFromFile = String.join(",", resp.get(1));
-        assertEquals(LINE_FROM_FILE, headerFromFile);
+        String lineFromFile = String.join(",", resp.get(1));
+        assertEquals(LINE_FROM_FILE, lineFromFile);
+        assertEquals(resp.get(0).length, OK_LENGTH);
     }
 
     @Test
     public void fileWithHeader() throws FileNotFoundException {
         FileReader reader = new CsvFileReaderImpl(new CSVReader(new java.io.FileReader(INPUT_PATH_OK)));
         List<String[]> resp = reader.read();
-        StringBuilder sb = new StringBuilder();
-        for (String s: resp.get(0)) {
-            sb.append(s).append(",");
-        }
-        assertEquals(FILE_HEADER, sb.substring(0,sb.length() - 1));
+        String header = String.join(",", resp.get(0));
+        assertEquals(FILE_HEADER, header);
     }
 
     @Test
