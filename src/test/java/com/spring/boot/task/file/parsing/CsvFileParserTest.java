@@ -40,7 +40,7 @@ class CsvFileParserTest {
                 + "finicky and she appreciates this product better than  most.");
         FileReader reader = new CsvFileReaderImpl(new CSVReader(new java.io.FileReader(OK_PATH)));
         String[] line = reader.read().get(0);
-        Assert.assertEquals(recordDto, parser.parse(String.join(",", line)));
+        Assert.assertEquals(recordDto, parser.parse(line));
     }
 
     @Test
@@ -48,6 +48,6 @@ class CsvFileParserTest {
         FileReader reader = new CsvFileReaderImpl(
                 new CSVReader(new java.io.FileReader(BAD_FORMAT)));
         Assert.assertThrows(RuntimeException.class,
-                () -> parser.parse(String.join(",", reader.read().get(0))));
+                () -> parser.parse(reader.read().get(0)));
     }
 }

@@ -2,7 +2,6 @@ package com.spring.boot.task.file.parsing;
 
 import com.opencsv.CSVParser;
 import com.spring.boot.task.dto.RecordDto;
-import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,28 +27,23 @@ public class CsvFileParser implements FileParser<RecordDto> {
     }
 
     @Override
-    public RecordDto parse(String record) {
+    public RecordDto parse(String[] record) {
         CSVParser parser = new CSVParser();
         RecordDto recordDto = new RecordDto();
-        try {
-            String[] values = parser.parseLine(record);
-            recordDto.setId(Long.parseLong(values[FILE_HEADER_MAP.get("Id")]));
-            recordDto.setProductId(values[FILE_HEADER_MAP.get("ProductId")]);
-            recordDto.setUserId(values[FILE_HEADER_MAP.get("UserId")]);
-            recordDto.setProfileName(values[FILE_HEADER_MAP.get("ProfileName")]);
-            recordDto.setHelpfulnessNumerator(Integer.parseInt(
-                    values[FILE_HEADER_MAP.get("HelpfulnessNumerator")]));
-            recordDto.setHelpfulnessDenominator(Integer.parseInt(
-                    values[FILE_HEADER_MAP.get("HelpfulnessDenominator")]));
-            recordDto.setScore(Integer.parseInt(
-                    values[FILE_HEADER_MAP.get("Score")]));
-            recordDto.setTime(LocalDateTime.ofInstant(Instant.ofEpochSecond(
-                    Long.parseLong(values[FILE_HEADER_MAP.get("Time")])), ZoneId.systemDefault()));
-            recordDto.setSummary(values[FILE_HEADER_MAP.get("Summary")]);
-            recordDto.setText(values[FILE_HEADER_MAP.get("Text")]);
-        } catch (IOException e) {
-            throw new RuntimeException("Can't parse record: " + record, e);
-        }
+        recordDto.setId(Long.parseLong(record[FILE_HEADER_MAP.get("Id")]));
+        recordDto.setProductId(record[FILE_HEADER_MAP.get("ProductId")]);
+        recordDto.setUserId(record[FILE_HEADER_MAP.get("UserId")]);
+        recordDto.setProfileName(record[FILE_HEADER_MAP.get("ProfileName")]);
+        recordDto.setHelpfulnessNumerator(Integer.parseInt(
+                record[FILE_HEADER_MAP.get("HelpfulnessNumerator")]));
+        recordDto.setHelpfulnessDenominator(Integer.parseInt(
+                record[FILE_HEADER_MAP.get("HelpfulnessDenominator")]));
+        recordDto.setScore(Integer.parseInt(
+                record[FILE_HEADER_MAP.get("Score")]));
+        recordDto.setTime(LocalDateTime.ofInstant(Instant.ofEpochSecond(
+                Long.parseLong(record[FILE_HEADER_MAP.get("Time")])), ZoneId.systemDefault()));
+        recordDto.setSummary(record[FILE_HEADER_MAP.get("Summary")]);
+        recordDto.setText(record[FILE_HEADER_MAP.get("Text")]);
         return recordDto;
     }
 }

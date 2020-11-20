@@ -24,7 +24,8 @@ class CsvFileReaderImplTest {
 
     @Test
     public void readWithBadPath() {
-        Assert.assertThrows(FileNotFoundException.class, () -> new CsvFileReaderImpl(new CSVReader(new java.io.FileReader(INPUT_PATH_BAD))).read());
+        Assert.assertThrows(FileNotFoundException.class, () -> new CsvFileReaderImpl(
+                new CSVReader(new java.io.FileReader(INPUT_PATH_BAD))).read());
     }
 
     @Test
