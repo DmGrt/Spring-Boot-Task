@@ -27,6 +27,7 @@ public class CsvFileReaderImpl implements FileReader {
                 lines.add(nextLine);
             }
             if (isHeaderProvided(lines.get(0))) {
+                lines.remove(0);
                 return lines;
             } else {
                 throw new NoHeaderException("File without header!");
