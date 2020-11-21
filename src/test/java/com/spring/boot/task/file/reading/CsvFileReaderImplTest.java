@@ -6,9 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class CsvFileReaderImplTest {
     private static final int OK_LENGTH = 10;
     private static final String INPUT_PATH_OK = "src/test/resources/Test.csv";

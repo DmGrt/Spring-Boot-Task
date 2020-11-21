@@ -9,17 +9,18 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import org.junit.Assert;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class CsvFileParserTest {
     private static final String OK_PATH = "src/test/resources/Test.csv";
     private static final String BAD_FORMAT = "src/test/resources/BadFormat.csv";
+    private static FileParser<RecordDto> parser;
 
-    @Autowired
-    private FileParser<RecordDto> parser;
+    @BeforeAll
+    public static void before() {
+        parser = new CsvFileParser();
+    }
 
     @Test
     void isParseOK() throws FileNotFoundException {
